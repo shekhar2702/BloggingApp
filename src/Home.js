@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
 function Home() {
   const [blogs, setBlogs] = useState([
@@ -11,6 +11,10 @@ function Home() {
       id: 3,
     },
   ]);
+  useEffect(() => {
+    console.log("use effect ran!!");
+    console.log(blogs); //remember never chanfe state within useEffect because useEffect is executed on every render and changing the state within useEffect will cause a re-render and then useEffect will run again and will change state again and hence re-render is triggered again.This process becomes infinite loop
+  });
   const handleClick = (id) => {
     let newBlog = blogs.filter((blog) => blog.id != id);
     setBlogs(newBlog);
