@@ -1,47 +1,27 @@
 import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
 function Home() {
-  const [name, setName] = useState("Somya");
-  const [blogs, setBlogs] = useState([
-    { title: "My new website", body: "lorem ipsum...", author: "mario", id: 1 },
-    { title: "Welcome party!", body: "lorem ipsum...", author: "yoshi", id: 2 },
-    {
-      title: "Web dev top tips",
-      body: "lorem ipsum...",
-      author: "mario",
-      id: 3,
-    },
-  ]);
+  const [blogs, setBlogs] = useState();
+  const [isPending, setIsPending] = useState(true);
   useEffect(() => {
-    console.log("use effect ran!!");
-    console.log(name);
-  }, [name]); //Added a useEffect dependency List.
-  //   This time useEffect is executed only when the values in dependecy list changes
-  //An empty dependency list([]) signifies that useEffect is going to run on first render only.
-  //If we don't pass any dependency list then useEffect is executed on every renders.
-  const handleClick = (id) => {
-    let newBlog = blogs.filter((blog) => blog.id != id);
-    setBlogs(newBlog);
-  };
+    console.log("Use effect executed");
+    fetch("http://localhost:8000/blogs")
+      .then((res) => res.json())
+      .then((data) => {
+        setBlogs(data);
+        setIsPending(false); //setIsPending to false once data is fetched
+      });
+  }, []);
+  //Since we use an empty dependency list we can change the state here within useEffect as useEffect is executed only on first render.
+  //But if we fill in blogs as a dependency list for useEffect then there is going to be infinite renders and executions of useEffect.Hence we use an empty
   return (
     <div className="home">
-      <BlogList
-        blogs={blogs}
-        title={"All Blogs"}
-        handleClick={handleClick}
-      ></BlogList>
-      <button
-        onClick={() => {
-          setName("Shekhar");
-        }}
-      >
-        Change Name!
-      </button>
-      <p>{name}</p>
+      {isPending && <div>Loading.....</div>}
+      {/* //The above code is written to show loading icon untill we get data from server.Once we get the data loading dissappears. */}
+      {blogs && <BlogList blogs={blogs} title="All Blogs!" />}
+      {/* //Short-circuiting in above code because we only wnt to render BlogList component only when we have the data */}
     </div>
   );
 }
 
 export default Home;
-// npx json-server --watch data/db.json --port 8000
-//The above command is used to create a json server endpoint at port 8000(Port 8000 is specified because by default json server is created t port 3000 which is already being used to serve our react application.)
