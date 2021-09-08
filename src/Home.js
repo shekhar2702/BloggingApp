@@ -3,14 +3,14 @@ function Home() {
   function printThis(e) {
     console.log("Button 1 pressed", e.target);
   }
-  function printName(name) {
-    console.log(name, "pressed the button 2");
+  function printName(name, e) {
+    console.log(name, "pressed the button 2", e.target);
   }
   return (
     <div className="home">
       <h2>HomePage</h2>
       <button onClick={printThis}>Press Me!</button>
-      <button onClick={() => printName(name)}>Press Me!</button>
+      <button onClick={(e) => printName(name, e)}>Press Me!</button>
     </div>
   );
 }
