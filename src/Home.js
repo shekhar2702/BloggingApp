@@ -43,3 +43,5 @@ function Home() {
 }
 
 export default Home;
+// npx json-server --watch data/db.json --port 8000
+//The above command is used to create a json server endpoint at port 8000(Port 8000 is specified because by default json server is created t port 3000 which is already being used to serve our react application.)
