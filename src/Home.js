@@ -6,11 +6,10 @@ function Home() {
   const [isError, setIsError] = useState();
   useEffect(() => {
     console.log("Use effect executed");
-    fetch("http://localhost:8000/blogss")//providing wrong route to force 404 error.
+    fetch("http://localhost:8000/blogs")
       .then((res) => {
         console.log(res);
         if (!res.ok)
-          //404 error If the server doesn't have the requested route or can't fetch resource for requested route.
           throw new error("Could not fetch data for the requested resource");
         return res.json();
       })
