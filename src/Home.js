@@ -6,15 +6,18 @@ function Home() {
   const [isError, setIsError] = useState();
   useEffect(() => {
     console.log("Use effect executed");
-    fetch("http://localhost:8000/blogs")
+    fetch("http://localhost:8000/blogss")//providing wrong route to force 404 error.
       .then((res) => {
-        console.log(res);//If we don't get any response from server(eg-if we are offline then we won't get any response and hence directly from here the catch block is called.)
+        console.log(res);
+        if (!res.ok)
+          //404 error If the server doesn't have the requested route or can't fetch resource for requested route.
+          throw new error("Could not fetch data for the requested resource");
         return res.json();
       })
       .then((data) => {
         setBlogs(data);
         setIsPending(false);
-        setIsError()
+        setIsError();
       })
       .catch((e) => {
         setIsError(e.message);
