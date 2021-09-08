@@ -1,5 +1,6 @@
 import Home from "./Home";
 import Navbar from "./Navbar";
+import Create from "./Create";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 function App() {
   return (
@@ -8,8 +9,11 @@ function App() {
         <Navbar />
         <div className="content">
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/create">
+              <Create />
             </Route>
           </Switch>
         </div>
@@ -19,6 +23,6 @@ function App() {
 }
 
 export default App;
-// - Router is placed at the root component App.
-// - We place the router around the main div which renders the entire app in this case it's the div with className = "App"
-//Switch basically matches the route and visits to a component in the ,atched route.
+//We add exact to find the exact matched route otherwise any substring of a different route can match with any other route which contains the substring.
+//Switch finds the first match and it scans fom top to bottom.
+//Eg:-If our first rote within switch was "/" and second route was "/create" then switch will goto "/" instead of "/create" and hence we use exact to find exact matches.
