@@ -11,12 +11,21 @@ function Home() {
       id: 3,
     },
   ]);
+  const handleClick = (id) => {
+    let newBlog = blogs.filter((blog) => blog.id != id);
+    setBlogs(newBlog);
+  };
   return (
     <div className="home">
-      <BlogList blogs={blogs} title={"All Blogs"}></BlogList>
+      <BlogList
+        blogs={blogs}
+        title={"All Blogs"}
+        handleClick={handleClick}
+      ></BlogList>
       <BlogList
         blogs={blogs.filter((blog) => blog.author == "mario")}
         title={"Mario's BLogs"}
+        handleClick={handleClick}
       ></BlogList>
     </div>
   );
