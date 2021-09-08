@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
 function Home() {
+  const [name, setName] = useState("Somya");
   const [blogs, setBlogs] = useState([
     { title: "My new website", body: "lorem ipsum...", author: "mario", id: 1 },
     { title: "Welcome party!", body: "lorem ipsum...", author: "yoshi", id: 2 },
@@ -13,8 +14,11 @@ function Home() {
   ]);
   useEffect(() => {
     console.log("use effect ran!!");
-    console.log(blogs); //remember never chanfe state within useEffect because useEffect is executed on every render and changing the state within useEffect will cause a re-render and then useEffect will run again and will change state again and hence re-render is triggered again.This process becomes infinite loop
-  });
+    console.log(name);
+  }, [name]); //Added a useEffect dependency List.
+  //   This time useEffect is executed only when the values in dependecy list changes
+  //An empty dependency list([]) signifies that useEffect is going to run on first render only.
+  //If we don't pass any dependency list then useEffect is executed on every renders.
   const handleClick = (id) => {
     let newBlog = blogs.filter((blog) => blog.id != id);
     setBlogs(newBlog);
@@ -26,6 +30,14 @@ function Home() {
         title={"All Blogs"}
         handleClick={handleClick}
       ></BlogList>
+      <button
+        onClick={() => {
+          setName("Shekhar");
+        }}
+      >
+        Change Name!
+      </button>
+      <p>{name}</p>
     </div>
   );
 }
