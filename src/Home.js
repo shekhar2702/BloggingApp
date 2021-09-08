@@ -22,11 +22,6 @@ function Home() {
         title={"All Blogs"}
         handleClick={handleClick}
       ></BlogList>
-      <BlogList
-        blogs={blogs.filter((blog) => blog.author == "mario")}
-        title={"Mario's BLogs"}
-        handleClick={handleClick}
-      ></BlogList>
     </div>
   );
 }
