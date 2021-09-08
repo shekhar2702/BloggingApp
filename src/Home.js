@@ -1,7 +1,7 @@
 function Home() {
   let name = "Somya";
-  function printThis() {
-    console.log("Button 1 pressed");
+  function printThis(e) {
+    console.log("Button 1 pressed", e.target);
   }
   function printName(name) {
     console.log(name, "pressed the button 2");
