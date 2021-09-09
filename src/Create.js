@@ -1,10 +1,11 @@
 import { useState } from "react";
-
+import { useHistory } from "react-router";
 const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("mario");
   const [isPending, setIsPending] = useState(false);
+  const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsPending(true);
@@ -16,6 +17,8 @@ const Create = () => {
     }).then(() => {
       console.log("New Blog added");
       setIsPending(false);
+      history.push("/");//redirects to the root route("/") once the blog is successfully added.
+      //history.push(-1)will redirect to the last page we re-visited .So history has a kind of history of our page navigations. We can provide positive numbers as well -2 will signify the second last page from history.
     });
   };
   return (
